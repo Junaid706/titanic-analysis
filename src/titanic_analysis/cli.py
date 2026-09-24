@@ -1,4 +1,5 @@
 """Command-line interface for Titanic Analysis."""
+
 import argparse
 import sys
 from typing import Optional
@@ -19,38 +20,16 @@ Examples:
   python -m titanic_analysis.cli --config custom.yaml  # Use custom config
   python -m titanic_analysis.cli --plots-only       # Generate only plots
   python -m titanic_analysis.cli --data-only        # Show data statistics only
-        """
+        """,
     )
+    parser.add_argument("-c", "--config", type=str, help="Path to configuration YAML file")
+    parser.add_argument("--plots-only", action="store_true", help="Generate only visualizations")
+    parser.add_argument("--data-only", action="store_true", help="Show only data statistics")
     parser.add_argument(
-        "-c", "--config",
-        type=str,
-        help="Path to configuration YAML file"
+        "--output-dir", type=str, help="Override output directory for plots and results"
     )
-    parser.add_argument(
-        "--plots-only",
-        action="store_true",
-        help="Generate only visualizations"
-    )
-    parser.add_argument(
-        "--data-only",
-        action="store_true",
-        help="Show only data statistics"
-    )
-    parser.add_argument(
-        "--output-dir",
-        type=str,
-        help="Override output directory for plots and results"
-    )
-    parser.add_argument(
-        "-v", "--verbose",
-        action="store_true",
-        help="Enable verbose logging"
-    )
-    parser.add_argument(
-        "--version",
-        action="version",
-        version="Titanic Analysis 1.0.0"
-    )
+    parser.add_argument("-v", "--verbose", action="store_true", help="Enable verbose logging")
+    parser.add_argument("--version", action="version", version="Titanic Analysis 1.0.0")
     return parser
 
 
@@ -86,7 +65,7 @@ def main(args: Optional[list] = None) -> int:
             print(f"\nTotal Passengers: {stats['total_passengers']}")
             print(f"Survival Rate: {stats['survival_rate']:.2%}")
             print("\nMissing Values:")
-            for col, count in stats['missing_values'].items():
+            for col, count in stats["missing_values"].items():
                 if count > 0:
                     print(f"  {col}: {count}")
 
@@ -110,7 +89,7 @@ def main(args: Optional[list] = None) -> int:
         print(f"Total Passengers: {results['statistics']['total_passengers']}")
         print(f"Overall Survival Rate: {results['statistics']['survival_rate']:.2%}")
         print(f"\nGenerated Plots: {len(results['plots'])}")
-        for plot in results['plots']:
+        for plot in results["plots"]:
             print(f"  - {plot}")
 
         return 0

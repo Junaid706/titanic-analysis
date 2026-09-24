@@ -1,4 +1,5 @@
 """Visualization module for Titanic Analysis."""
+
 from pathlib import Path
 from typing import Optional
 
@@ -109,9 +110,7 @@ class Visualizer:
         age_bins = [0, 12, 18, 35, 50, 65, 100]
         age_labels = ["Child", "Teen", "Young Adult", "Adult", "Middle Age", "Senior"]
         data["age_group"] = pd.cut(data["age"], bins=age_bins, labels=age_labels)
-        survival_rate = (
-            data.groupby("age_group", observed=False)["survived"].mean().reset_index()
-        )
+        survival_rate = data.groupby("age_group", observed=False)["survived"].mean().reset_index()
         sns.barplot(data=survival_rate, x="age_group", y="survived")
         plt.title("Survival Rate by Age Group")
         plt.xlabel("Age Group")
@@ -131,9 +130,7 @@ class Visualizer:
             data["family_size"], bins=family_bins, labels=family_labels
         )
         survival_rate = (
-            data.groupby("family_category", observed=False)["survived"]
-            .mean()
-            .reset_index()
+            data.groupby("family_category", observed=False)["survived"].mean().reset_index()
         )
         sns.barplot(data=survival_rate, x="family_category", y="survived")
         plt.title("Survival Rate by Family Size")

@@ -1,4 +1,5 @@
 """Tests for analyze module."""
+
 import sys
 import tempfile
 from pathlib import Path

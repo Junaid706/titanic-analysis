@@ -1,4 +1,5 @@
 """Configuration management for Titanic Analysis."""
+
 from pathlib import Path
 from typing import Any, Optional
 

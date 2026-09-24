@@ -1,4 +1,5 @@
 """Tests for visualization module."""
+
 import sys
 import tempfile
 from pathlib import Path
@@ -52,19 +53,21 @@ output:
         """Create sample data for testing."""
         np.random.seed(42)
         n = 100
-        return pd.DataFrame({
-            "survived": np.random.randint(0, 2, n),
-            "class": np.random.choice(["First", "Second", "Third"], n),
-            "sex": np.random.choice(["male", "female"], n),
-            "age": np.random.normal(30, 15, n).clip(0, 80),
-            "fare": np.random.exponential(30, n).clip(0, 500),
-            "embark_town": np.random.choice(["Southampton", "Cherbourg", "Queenstown"], n),
-            "sibsp": np.random.poisson(0.5, n),
-            "parch": np.random.poisson(0.3, n),
-            "deck": np.random.choice(["A", "B", "C", "D", "E", "Unknown"], n),
-            "alone": np.random.choice([True, False], n),
-            "who": np.random.choice(["man", "woman", "child"], n),
-        })
+        return pd.DataFrame(
+            {
+                "survived": np.random.randint(0, 2, n),
+                "class": np.random.choice(["First", "Second", "Third"], n),
+                "sex": np.random.choice(["male", "female"], n),
+                "age": np.random.normal(30, 15, n).clip(0, 80),
+                "fare": np.random.exponential(30, n).clip(0, 500),
+                "embark_town": np.random.choice(["Southampton", "Cherbourg", "Queenstown"], n),
+                "sibsp": np.random.poisson(0.5, n),
+                "parch": np.random.poisson(0.3, n),
+                "deck": np.random.choice(["A", "B", "C", "D", "E", "Unknown"], n),
+                "alone": np.random.choice([True, False], n),
+                "who": np.random.choice(["man", "woman", "child"], n),
+            }
+        )
 
     def test_visualizer_init(self, config):
         """Test visualizer initialization."""
