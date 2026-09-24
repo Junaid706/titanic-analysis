@@ -1,15 +1,17 @@
 """Visualization module for Titanic Analysis."""
-import matplotlib
-matplotlib.use("Agg")  # Non-interactive backend
-import matplotlib.pyplot as plt
-import seaborn as sns
-import pandas as pd
-import numpy as np
 from pathlib import Path
-from typing import Optional, List, Dict, Any
+from typing import Optional
 
-from .config import get_config
-from .logger import setup_logging
+import matplotlib
+
+matplotlib.use("Agg")  # Non-interactive backend
+import matplotlib.pyplot as plt  # noqa: E402
+import numpy as np  # noqa: E402
+import pandas as pd  # noqa: E402
+import seaborn as sns  # noqa: E402
+
+from .config import get_config  # noqa: E402
+from .logger import setup_logging  # noqa: E402
 
 
 class Visualizer:
@@ -47,7 +49,7 @@ class Visualizer:
     def plot_survival_by_class(self, data: pd.DataFrame) -> Path:
         """Plot survival count by passenger class."""
         plt.figure()
-        ax = sns.countplot(data=data, x="class", hue="survived")
+        sns.countplot(data=data, x="class", hue="survived")
         plt.title("Survival Count by Passenger Class")
         plt.xlabel("Passenger Class")
         plt.ylabel("Count")
@@ -104,9 +106,12 @@ class Visualizer:
         """Plot survival rate by age groups."""
         plt.figure()
         data = data.copy()
-        data["age_group"] = pd.cut(data["age"], bins=[0, 12, 18, 35, 50, 65, 100],
-                                    labels=["Child", "Teen", "Young Adult", "Adult", "Middle Age", "Senior"])
-        survival_rate = data.groupby("age_group", observed=False)["survived"].mean().reset_index()
+        age_bins = [0, 12, 18, 35, 50, 65, 100]
+        age_labels = ["Child", "Teen", "Young Adult", "Adult", "Middle Age", "Senior"]
+        data["age_group"] = pd.cut(data["age"], bins=age_bins, labels=age_labels)
+        survival_rate = (
+            data.groupby("age_group", observed=False)["survived"].mean().reset_index()
+        )
         sns.barplot(data=survival_rate, x="age_group", y="survived")
         plt.title("Survival Rate by Age Group")
         plt.xlabel("Age Group")
@@ -120,9 +125,16 @@ class Visualizer:
         plt.figure()
         data = data.copy()
         data["family_size"] = data["sibsp"] + data["parch"] + 1
-        data["family_category"] = pd.cut(data["family_size"], bins=[0, 1, 4, 11],
-                                          labels=["Solo", "Small (2-4)", "Large (5+)"])
-        survival_rate = data.groupby("family_category", observed=False)["survived"].mean().reset_index()
+        family_bins = [0, 1, 4, 11]
+        family_labels = ["Solo", "Small (2-4)", "Large (5+)"]
+        data["family_category"] = pd.cut(
+            data["family_size"], bins=family_bins, labels=family_labels
+        )
+        survival_rate = (
+            data.groupby("family_category", observed=False)["survived"]
+            .mean()
+            .reset_index()
+        )
         sns.barplot(data=survival_rate, x="family_category", y="survived")
         plt.title("Survival Rate by Family Size")
         plt.xlabel("Family Size Category")
@@ -130,7 +142,7 @@ class Visualizer:
         plt.ylim(0, 1)
         return self.save_figure("survival_by_family_size")
 
-    def generate_all_plots(self, data: pd.DataFrame) -> List[Path]:
+    def generate_all_plots(self, data: pd.DataFrame) -> list[Path]:
         """Generate all standard plots."""
         self.logger.info("Generating all visualizations...")
         paths = []

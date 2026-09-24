@@ -1,8 +1,9 @@
 """Data loading and preprocessing for Titanic Analysis."""
+from pathlib import Path
+from typing import Optional
+
 import pandas as pd
 import seaborn as sns
-from pathlib import Path
-from typing import Optional, Tuple
 
 from .config import get_config
 from .logger import setup_logging
@@ -66,7 +67,9 @@ class DataLoader:
         self.logger.info("Preprocessing completed")
         return data
 
-    def get_feature_target(self, df: Optional[pd.DataFrame] = None) -> Tuple[pd.DataFrame, pd.Series]:
+    def get_feature_target(
+        self, df: Optional[pd.DataFrame] = None
+    ) -> tuple[pd.DataFrame, pd.Series]:
         """Split features and target."""
         data = self.preprocess(df)
         target_col = self.config.get("analysis.target_column", "survived")

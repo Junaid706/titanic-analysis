@@ -1,15 +1,15 @@
 """Tests for data module."""
-import pytest
-import pandas as pd
-import numpy as np
-from pathlib import Path
-import tempfile
-
 import sys
+import tempfile
+from pathlib import Path
+
+import pandas as pd
+import pytest
+
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 
-from titanic_analysis.data import DataLoader
 from titanic_analysis.config import Config
+from titanic_analysis.data import DataLoader
 
 
 class TestDataLoader:

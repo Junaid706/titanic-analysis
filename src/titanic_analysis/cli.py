@@ -1,11 +1,11 @@
 """Command-line interface for Titanic Analysis."""
 import argparse
 import sys
-from pathlib import Path
+from typing import Optional
 
+from .analyze import TitanicAnalyzer
 from .config import get_config
 from .logger import setup_logging
-from .analyze import TitanicAnalyzer
 
 
 def create_parser() -> argparse.ArgumentParser:
@@ -85,7 +85,7 @@ def main(args: Optional[list] = None) -> int:
             print(f"Columns: {list(processed.columns)}")
             print(f"\nTotal Passengers: {stats['total_passengers']}")
             print(f"Survival Rate: {stats['survival_rate']:.2%}")
-            print(f"\nMissing Values:")
+            print("\nMissing Values:")
             for col, count in stats['missing_values'].items():
                 if count > 0:
                     print(f"  {col}: {count}")

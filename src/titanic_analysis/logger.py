@@ -7,7 +7,9 @@ from typing import Optional
 from .config import get_config
 
 
-def setup_logging(name: str = "titanic_analysis", config_path: Optional[str] = None) -> logging.Logger:
+def setup_logging(
+    name: str = "titanic_analysis", config_path: Optional[str] = None
+) -> logging.Logger:
     """Setup and return configured logger."""
     config = get_config(config_path)
     log_config = config.get_section("logging")
@@ -21,7 +23,8 @@ def setup_logging(name: str = "titanic_analysis", config_path: Optional[str] = N
     # Console handler
     console_handler = logging.StreamHandler(sys.stdout)
     console_handler.setLevel(getattr(logging, log_config.get("level", "INFO")))
-    formatter = logging.Formatter(log_config.get("format", "%(asctime)s - %(name)s - %(levelname)s - %(message)s"))
+    default_format = "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+    formatter = logging.Formatter(log_config.get("format", default_format))
     console_handler.setFormatter(formatter)
     logger.addHandler(console_handler)
 

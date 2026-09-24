@@ -1,11 +1,12 @@
 """Main analysis module for Titanic Analysis."""
-import pandas as pd
 from pathlib import Path
-from typing import Optional, Dict, Any
+from typing import Any, Optional
+
+import pandas as pd
 
 from .config import get_config
-from .logger import setup_logging
 from .data import DataLoader
+from .logger import setup_logging
 from .visualize import Visualizer
 
 
@@ -19,7 +20,7 @@ class TitanicAnalyzer:
         self.visualizer = Visualizer(config_path)
         self.output_config = self.config.get_section("output")
 
-    def run_analysis(self) -> Dict[str, Any]:
+    def run_analysis(self) -> dict[str, Any]:
         """Run complete analysis pipeline."""
         self.logger.info("Starting Titanic analysis...")
 
@@ -47,7 +48,7 @@ class TitanicAnalyzer:
         self.logger.info("Analysis completed successfully")
         return results
 
-    def _compute_statistics(self, data: pd.DataFrame) -> Dict[str, Any]:
+    def _compute_statistics(self, data: pd.DataFrame) -> dict[str, Any]:
         """Compute basic statistics."""
         target = self.config.get("analysis.target_column", "survived")
 

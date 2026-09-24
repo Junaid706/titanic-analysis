@@ -1,7 +1,8 @@
 """Configuration management for Titanic Analysis."""
-import yaml
 from pathlib import Path
-from typing import Any, Dict, Optional
+from typing import Any, Optional
+
+import yaml
 
 
 class Config:
@@ -9,7 +10,7 @@ class Config:
 
     def __init__(self, config_path: Optional[str] = None):
         self.config_path = config_path or self._default_config_path()
-        self._config: Dict[str, Any] = {}
+        self._config: dict[str, Any] = {}
         self.load()
 
     def _default_config_path(self) -> str:
@@ -18,7 +19,7 @@ class Config:
 
     def load(self) -> None:
         """Load configuration from YAML file."""
-        with open(self.config_path, "r", encoding="utf-8") as f:
+        with open(self.config_path, encoding="utf-8") as f:
             self._config = yaml.safe_load(f)
 
     def get(self, key: str, default: Any = None) -> Any:
@@ -34,12 +35,12 @@ class Config:
                 return default
         return value
 
-    def get_section(self, section: str) -> Dict[str, Any]:
+    def get_section(self, section: str) -> dict[str, Any]:
         """Get entire configuration section."""
         return self._config.get(section, {})
 
     @property
-    def config(self) -> Dict[str, Any]:
+    def config(self) -> dict[str, Any]:
         """Return full configuration."""
         return self._config.copy()
 

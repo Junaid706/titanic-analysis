@@ -1,11 +1,11 @@
 """Tests for analyze module."""
-import pytest
-import pandas as pd
-import numpy as np
-from pathlib import Path
-import tempfile
-
 import sys
+import tempfile
+from pathlib import Path
+
+import pandas as pd
+import pytest
+
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 
 from titanic_analysis.analyze import TitanicAnalyzer
