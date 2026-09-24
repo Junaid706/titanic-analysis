@@ -1,0 +1,39 @@
+# Titanic Analysis Configuration
+dataset:
+  name: "titanic"
+  source: "seaborn"  # or "kaggle", "local"
+
+visualization:
+  style: "whitegrid"
+  palette: "husl"
+  figure_size: [10, 6]
+  dpi: 100
+  save_plots: true
+  output_dir: "outputs"
+  font_family: "DejaVu Sans"
+
+analysis:
+  target_column: "survived"
+  categorical_columns:
+    - "class"
+    - "sex"
+    - "embark_town"
+    - "who"
+    - "deck"
+    - "alone"
+  numerical_columns:
+    - "age"
+    - "fare"
+    - "pclass"
+    - "sibsp"
+    - "parch"
+
+logging:
+  level: "INFO"
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  file: "logs/analysis.log"
+
+output:
+  results_dir: "outputs"
+  save_data: true
+  save_figures: true
